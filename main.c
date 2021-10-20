@@ -7,14 +7,14 @@
 int	main(void)
 {
 	int	fd;
-	fd = open("test.txt", O_RDONLY);
-	if (fd == -1) {
+    unsigned int i;
+    char *string;
+
+    fd = open("test.txt", O_RDONLY);
+    if (fd == -1) {
 		printf("Error! Could not open file\n");
 		exit(-1);
 	}
-	while (i < 5)  
-	{
-		printf("%s", get_next_line(fd));
-		i++;
-	}
+    string = get_next_line(fd);
+    printf("%s", string);
 }
