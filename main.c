@@ -12,7 +12,7 @@ int	main(void)
 		printf("Error! Could not open file\n");
 		exit(-1);
 	}
-	while (i < 5)
+	while (i < 5)  
 	{
 		printf("%s", get_next_line(fd));
 		i++;
