@@ -1,0 +1,7 @@
+Compile:
+	gcc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c.
+
+Return value 
+	Read line: correct behavior
+	NULL: nothing else to read or an error occurred
+
