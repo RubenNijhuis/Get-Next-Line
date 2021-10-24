@@ -1,52 +1,18 @@
 #include "get_next_line_bonus.h"
-#include <unistd.h>
-#include <stdio.h>
 
 // Return correct buffer based on fd
 // Free list if malloc issue
-t_list	*ft_lstadd_back(t_list *lst, t_list *new)
-{
-	if (!lst)
-	{
-		lst = new;
-		return (new);
-	}
-	while (lst->next != NULL)
-		lst = lst->next;
-	lst->next = new;
-	return (lst->next);
-}
 
-t_list	*ft_lstnew(int fd)
+char *get_fds_buffer(char *fds[], int fd)
 {
-	struct s_list	*block;
-
-	block = (t_list *) malloc(sizeof(*block));
-	if (block == NULL)
-		return (NULL);
-	block->fd = fd;
-	block->next = NULL;
-	block->buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!block->buffer)
-		return (NULL);
-	return (block);
-}
-
-char *gnl_get_block(int fd, t_list *lst)
-{
-	if (lst == NULL)
+	if (!fds[fd - 1])
 	{
-		lst = ft_lstnew(fd);
-		printf("new block %d\n", lst->fd);
+		fds[fd - 1] = malloc((BUFFER_SIZE + 1) * sizeof(char));
+		if (!fds[fd - 1])
+			return (NULL);
+		fds[fd - 1][BUFFER_SIZE] = '\0';
 	}
-	while (lst->next != NULL && lst->fd != fd)
-		lst = lst->next;
-	if (lst->fd == fd)
-		return (lst->buffer);
-	else
-	{
-		return (ft_lstadd_back(lst, ft_lstnew(fd))->buffer);
-	}
+	return (fds[fd - 1]);
 }
 
 char	*gnl_go_through_file(int fd, char *line, char *buffer)
@@ -80,16 +46,13 @@ char	*gnl_go_through_file(int fd, char *line, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static struct s_list	*lst;
-	char					*line;
+	static char	*fds[OPEN_MAX];
+	char		*line;
 
-	if (lst == NULL)
-		lst = ft_lstnew(fd);
-
-	if (fd < 0 || fd > 1024 || read(fd, 0, 0) == -1)
-		return (NULL);
 	line = malloc(sizeof(char) * 1);
-	line = gnl_go_through_file(fd, line, gnl_get_block(fd, lst));
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0 || !line)
+		return (NULL);
+	line = gnl_go_through_file(fd, line, get_fds_buffer(fds, fd));
 	if (!*line)
 	{
 		free(line);

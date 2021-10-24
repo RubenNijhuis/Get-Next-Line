@@ -19,6 +19,7 @@ int	main(void)
 		printf("Error! Could not open file\n");
 		exit(-1);
 	}
+	printf("%s", get_next_line(fd2));
 	printf("%s", get_next_line(fd1));
 	printf("%s", get_next_line(fd2));
 	printf("%s", get_next_line(fd1));

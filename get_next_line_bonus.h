@@ -2,17 +2,12 @@
 # define GET_NEXT_LINE_H
 
 # include <stdlib.h>
+# include <limits.h>
+# include <unistd.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 2
 # endif
-
-typedef struct s_list
-{
-	char			*buffer;
-	int				fd;
-	struct s_list	*next;
-}t_list;
 
 char	*get_next_line(int fd);
 char	*gnl_reindex_buf(char *buffer, char *line);
