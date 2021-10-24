@@ -6,16 +6,21 @@
 
 int	main(void)
 {
-	int				fd;
+	int				fd1;
+	int				fd2;
 	unsigned int	i;
 
 	i = 0;
-	fd = open("test.txt", O_RDONLY);
-	if (fd == -1)
+	fd1 = open("test.txt", O_RDONLY);
+	fd2 = open("notes.txt", O_RDONLY);
+
+	if (fd1 == -1 || fd2 == -1)
 	{
 		printf("Error! Could not open file\n");
 		exit(-1);
 	}
-	while (i < 8)
-		printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd1));
+	printf("%s", get_next_line(fd2));
+	printf("%s", get_next_line(fd1));
+	printf("%s", get_next_line(fd2));
 }
