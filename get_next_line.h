@@ -3,6 +3,10 @@
 
 # include <stdlib.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 128
+# endif
+
 char	*get_next_line(int fd);
 char	*gnl_reindex_buf(char *buffer, char *line);
 void	*gnl_memmove(void *dst, const void *src, size_t len);

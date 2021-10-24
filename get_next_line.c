@@ -38,7 +38,7 @@ char	*get_next_line(int fd)
 	static char		buffer[BUFFER_SIZE + 1];
 	char			*line;
 
-	if (fd < 0 || fd > 1024 || read(fd, buffer, 0) == -1)
+	if (fd < 0 || fd > 1024 || read(fd, 0, 0) == -1)
 		return (NULL);
 	line = malloc(sizeof(char) * 1);
 	line = gnl_go_through_file(fd, line, buffer);
