@@ -1,19 +1,8 @@
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
-// Return correct buffer based on fd
-// Free list if malloc issue
-
-char *get_fds_buffer(char *fds[], int fd)
-{
-	if (!fds[fd - 1])
-	{
-		fds[fd - 1] = malloc((BUFFER_SIZE + 1) * sizeof(char));
-		if (!fds[fd - 1])
-			return (NULL);
-		fds[fd - 1][BUFFER_SIZE] = '\0';
-	}
-	return (fds[fd - 1]);
-}
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
 
 char	*gnl_go_through_file(int fd, char *line, char *buffer)
 {
@@ -46,13 +35,13 @@ char	*gnl_go_through_file(int fd, char *line, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*fds[OPEN_MAX];
-	char		*line;
+	static char		buffer[BUFFER_SIZE + 1];
+	char			*line;
 
-	line = malloc(sizeof(char) * 1);
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0 || !line)
+	if (fd < 0 || fd > 1024 || read(fd, 0, 0) == -1)
 		return (NULL);
-	line = gnl_go_through_file(fd, line, get_fds_buffer(fds, fd));
+	line = malloc(sizeof(char) * 1);
+	line = gnl_go_through_file(fd, line, buffer);
 	if (!*line)
 	{
 		free(line);
