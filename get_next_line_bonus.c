@@ -29,8 +29,8 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd > OPEN_MAX || read(fd, buffer, 0) == -1)
 		return (NULL);
-	line = (char *)malloc(sizeof(char));
-	if (!line)
+	line = malloc(sizeof(char));
+	if (line == NULL)
 		return (NULL);
 	line[0] = '\0';
 	line = go_through_file(line, fd, buffer);

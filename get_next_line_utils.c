@@ -72,7 +72,7 @@ int	check_buffer(char *buffer)
 	int	i;
 
 	i = 0;
-	if (!buffer)
+	if (buffer == NULL)
 		return (0);
 	while (i < BUFFER_SIZE)
 	{
