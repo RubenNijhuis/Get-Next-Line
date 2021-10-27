@@ -1,47 +1,39 @@
 #include "get_next_line.h"
 
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-
-char	*gnl_go_through_file(int fd, char *line, char *buffer)
+static char	*go_through_file(char *line, int fd, char *buffer)
 {
-	size_t	line_len;
-	int		read_i;
+	int			size_line;
+	int			buffer_size;
 
-	line[0] = 0;
-	buffer[BUFFER_SIZE] = 0;
-	if (buffer[0] != 0)
+	size_line = 0;
+	buffer_size = check_buffer(buffer);
+	size_line += buffer_size;
+	line = add_buffer(line, buffer, buffer_size, size_line);
+	if (!check_line(line))
+		return (line);
+	while (read(fd, buffer, BUFFER_SIZE))
 	{
-		line = gnl_reindex_buf(buffer, line);
-		if (line[gnl_strlen(line, 0) - 1] == '\n')
-			return (line);
-	}
-	read_i = read(fd, buffer, BUFFER_SIZE);
-	if (read_i < 0)
-		return (NULL);
-	while (read_i)
-	{
-		if (read_i < 0)
-			return (NULL);
-		line = gnl_reindex_buf(buffer, line);
-		line_len = gnl_strlen(line, 0);
-		if (line_len && line[line_len - 1] == '\n')
-			return (line);
-		read_i = read(fd, buffer, BUFFER_SIZE);
+		buffer_size = check_buffer(buffer);
+		size_line += buffer_size;
+		line = add_buffer(line, buffer, buffer_size, size_line);
+		if (!check_line(line))
+			break ;
 	}
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char		buffer[BUFFER_SIZE + 1];
-	char			*line;
+	static char	buffer[BUFFER_SIZE];
+	char		*line;
 
-	if (fd < 0 || fd > 1024 || read(fd, 0, 0) == -1)
+	if (fd < 0 || fd > OPEN_MAX || read(fd, buffer, 0) == -1)
 		return (NULL);
-	line = malloc(sizeof(char) * 1);
-	line = gnl_go_through_file(fd, line, buffer);
+	line = (char *)malloc(sizeof(char));
+	if (!line)
+		return (NULL);
+	line[0] = '\0';
+	line = go_through_file(line, fd, buffer);
 	if (!*line)
 	{
 		free(line);

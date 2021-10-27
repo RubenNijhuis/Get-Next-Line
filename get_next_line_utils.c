@@ -1,76 +1,86 @@
 #include "get_next_line.h"
 
-size_t	gnl_strlen(char *str, int flag)
+int	check_line(char *line)
 {
-	size_t	len;
-
-	len = 0;
-	while (str[len] != 0 && len < BUFFER_SIZE && str[len] \
-	!= '\n' && flag == 1)
-		len++;
-	while (str[len] != 0 && flag == 0)
-		len++;
-	return (len);
+	while (*line)
+	{
+		if (*line == '\n')
+			return (0);
+		line++;
+	}
+	return (1);
 }
 
-void	gnl_bzero(char	*str, size_t i)
+void	reindex_buffer(char *buffer, int buffer_size)
 {
+	int		i;
+
+	i = 0;
+	while (buffer_size < BUFFER_SIZE)
+	{
+		buffer[i] = buffer[buffer_size];
+		buffer_size++;
+		i++;
+	}
 	while (i < BUFFER_SIZE)
 	{
-		str[i] = 0;
+		buffer[i] = '\0';
 		i++;
 	}
 }
 
-void	*gnl_memmove(void *dst, const void *src, size_t len)
+char	*create_newline(char *line, char *buffer, int buffer_size, int size_line)
 {
-	size_t	i;
+	int	i;
+	int	j;
+	char *new_line;
 
-	if (dst == NULL && src == NULL)
-		return (NULL);
 	i = 0;
-	if (dst > src)
+	j = 0;
+	new_line = malloc((size_line + 1) * sizeof(char));
+	if (new_line == NULL)
+		return (NULL);
+	while (line[i])
 	{
-		while (len > 0)
-		{
-			((char *)dst)[len - 1] = ((char *)src)[len - 1];
-			len--;
-		}
-		return (dst);
-	}
-	while (len > i)
-	{
-		((char *)dst)[i] = ((char *) src)[i];
+		new_line[i] = line[i];
 		i++;
 	}
-	return (dst);
-}
-
-char	*gnl_reindex_buf(char *buffer, char *line)
-{
-	size_t	i;
-	char	*tmp;
-	size_t	j;
-	size_t	str_lenbuf;
-
-	str_lenbuf = gnl_strlen(buffer, 1);
-	tmp = (char *)malloc((gnl_strlen(line, 0) + \
-	str_lenbuf + 1) * sizeof(char));
-	j = 0;
-	while (line[j] != '\0')
+	while (j < buffer_size)
 	{
-		tmp[j] = line[j];
+		new_line[i] = buffer[j];
+		i++;
 		j++;
 	}
+	new_line[i] = '\0';
+	return (new_line);
+}
+
+char	*add_buffer(char *line, char *buffer, int buffer_size, int size_line)
+{
+	char	*new_line;
+
+	new_line = create_newline(line, buffer, buffer_size, size_line);
+	if (new_line == NULL)
+		return (NULL);
+	reindex_buffer(buffer, buffer_size);
+	free(line);
+	return (new_line);
+}
+
+int	check_buffer(char *buffer)
+{
+	int	i;
+
 	i = 0;
-	while (i < str_lenbuf + 1 && i < BUFFER_SIZE)
+	if (!buffer)
+		return (0);
+	while (i < BUFFER_SIZE)
 	{
-		tmp[j + i] = buffer[i];
+		if (buffer[i] == '\n')
+			return (i + 1);
+		else if (buffer[i] == '\0')
+			return (i);
 		i++;
 	}
-	gnl_memmove(buffer, buffer + i, BUFFER_SIZE - i);
-	tmp[j + i] = 0;
-	gnl_bzero(buffer, BUFFER_SIZE - i);
-	free(line);
-	return (tmp);
+	return (i);
 }
