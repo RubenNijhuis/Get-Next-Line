@@ -1,4 +1,16 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_utils_bonus.c                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/10/28 12:00:56 by rnijhuis      #+#    #+#                 */
+/*   Updated: 2021/10/28 12:03:25 by rnijhuis      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_bonus.h"
 
 int	check_line(char *line)
 {
@@ -11,15 +23,15 @@ int	check_line(char *line)
 	return (1);
 }
 
-void	reindex_buffer(char *buffer, int buffer_size)
+void	reindex_buffer(char *buffer, int buf_line)
 {
 	int		i;
 
 	i = 0;
-	while (buffer_size < BUFFER_SIZE)
+	while (buf_line < BUFFER_SIZE)
 	{
-		buffer[i] = buffer[buffer_size];
-		buffer_size++;
+		buffer[i] = buffer[buf_line];
+		buf_line++;
 		i++;
 	}
 	while (i < BUFFER_SIZE)
@@ -29,15 +41,15 @@ void	reindex_buffer(char *buffer, int buffer_size)
 	}
 }
 
-char	*create_newline(char *line, char *buffer, int buffer_size, int size_line)
+char	*create_newline(char *line, char *buffer, int buf_size, int line_size)
 {
-	int	i;
-	int	j;
-	char *new_line;
+	int		i;
+	int		j;
+	char	*new_line;
 
 	i = 0;
 	j = 0;
-	new_line = malloc((size_line + 1) * sizeof(char));
+	new_line = malloc((line_size + 1) * sizeof(char));
 	if (new_line == NULL)
 		return (NULL);
 	while (line[i])
@@ -45,7 +57,7 @@ char	*create_newline(char *line, char *buffer, int buffer_size, int size_line)
 		new_line[i] = line[i];
 		i++;
 	}
-	while (j < buffer_size)
+	while (j < buf_size)
 	{
 		new_line[i] = buffer[j];
 		i++;
@@ -55,14 +67,14 @@ char	*create_newline(char *line, char *buffer, int buffer_size, int size_line)
 	return (new_line);
 }
 
-char	*add_buffer(char *line, char *buffer, int buffer_size, int size_line)
+char	*add_buffer(char *line, char *buffer, int buf_line, int line_size)
 {
 	char	*new_line;
 
-	new_line = create_newline(line, buffer, buffer_size, size_line);
+	new_line = create_newline(line, buffer, buf_line, line_size);
 	if (new_line == NULL)
 		return (NULL);
-	reindex_buffer(buffer, buffer_size);
+	reindex_buffer(buffer, buf_line);
 	free(line);
 	return (new_line);
 }

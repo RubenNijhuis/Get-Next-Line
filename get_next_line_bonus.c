@@ -1,21 +1,32 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_bonus.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/10/28 11:58:54 by rnijhuis      #+#    #+#                 */
+/*   Updated: 2021/10/28 12:03:10 by rnijhuis      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_bonus.h"
 
 static char	*go_through_file(char *line, int fd, char *buffer)
 {
-	int			size_line;
-	int			buffer_size;
+	int			line_size;
+	int			buf_line;
 
-	size_line = 0;
-	buffer_size = check_buffer(buffer);
-	size_line += buffer_size;
-	line = add_buffer(line, buffer, buffer_size, size_line);
+	buf_line = check_buffer(buffer);
+	line_size = buf_line;
+	line = add_buffer(line, buffer, buf_line, line_size);
 	if (!check_line(line))
 		return (line);
 	while (read(fd, buffer, BUFFER_SIZE))
 	{
-		buffer_size = check_buffer(buffer);
-		size_line += buffer_size;
-		line = add_buffer(line, buffer, buffer_size, size_line);
+		buf_line = check_buffer(buffer);
+		line_size += buf_line;
+		line = add_buffer(line, buffer, buf_line, line_size);
 		if (!check_line(line))
 			break ;
 	}
@@ -34,6 +45,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line[0] = '\0';
 	line = go_through_file(line, fd, buffer);
+	if (line == NULL)
+		return (NULL);
 	if (!*line)
 	{
 		free(line);
