@@ -29,11 +29,11 @@ void	reindex_buffer(char *buffer, int buffer_size)
 	}
 }
 
-char	*create_newline(char *line, char *buffer, int buffer_size, int size_line)
+char	*create_newline(char *line, char *buffer, int buf_size, int size_line)
 {
-	int	i;
-	int	j;
-	char *new_line;
+	int		i;
+	int		j;
+	char	*new_line;
 
 	i = 0;
 	j = 0;
@@ -45,7 +45,7 @@ char	*create_newline(char *line, char *buffer, int buffer_size, int size_line)
 		new_line[i] = line[i];
 		i++;
 	}
-	while (j < buffer_size)
+	while (j < buf_size)
 	{
 		new_line[i] = buffer[j];
 		i++;
