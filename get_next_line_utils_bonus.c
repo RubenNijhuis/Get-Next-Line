@@ -1,4 +1,16 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_utils_bonus.c                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/10/28 12:00:56 by rnijhuis      #+#    #+#                 */
+/*   Updated: 2021/10/28 12:03:25 by rnijhuis      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_bonus.h"
 
 int	check_line(char *line)
 {

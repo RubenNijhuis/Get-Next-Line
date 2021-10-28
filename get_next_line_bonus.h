@@ -1,5 +1,17 @@
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_bonus.h                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/10/28 12:01:06 by rnijhuis      #+#    #+#                 */
+/*   Updated: 2021/10/28 12:03:18 by rnijhuis      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
