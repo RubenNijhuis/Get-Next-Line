@@ -6,7 +6,7 @@
 /*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/28 12:00:56 by rnijhuis      #+#    #+#                 */
-/*   Updated: 2021/11/01 10:04:14 by rnijhuis      ########   odam.nl         */
+/*   Updated: 2021/11/01 10:08:20 by rnijhuis      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_line(char *line)
 
 void	reindex_buffer(char *buffer, int buf_line)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (buf_line < BUFFER_SIZE)

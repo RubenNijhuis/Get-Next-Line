@@ -6,7 +6,7 @@
 /*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/28 11:58:54 by rnijhuis      #+#    #+#                 */
-/*   Updated: 2021/11/01 10:04:11 by rnijhuis      ########   odam.nl         */
+/*   Updated: 2021/11/01 10:07:53 by rnijhuis      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	*go_through_file(char *line, int fd, char *buffer)
 {
-	int			line_size;
-	int			buf_line;
+	int	line_size;
+	int	buf_line;
 
 	buf_line = check_buffer(buffer);
 	line_size = buf_line;
