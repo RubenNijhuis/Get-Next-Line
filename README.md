@@ -9,12 +9,12 @@ This project assumes you have Make installed, otherwise you can copy paste the c
 $ git clone https://github.com/RubenNijhuis/Get-Next-Line.git
 
 # Compile:
-$ Make
+$ cd ./src && make
 ```
 
 ### Usage
 
-And add the `get_next_line.a` file that was created in the Get-Next-Line folder to your project, and don't forget to compile it with your other files.
+And add the `get_next_line.a` file that was created in the `src/` folder to your project, and don't forget to compile it with your other files.
 
 Your finished folder structure should look like this.
 ```
