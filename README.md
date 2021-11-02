@@ -9,24 +9,18 @@ This project assumes you have Make installed, otherwise you can copy paste the c
 $ git clone https://github.com/RubenNijhuis/Get-Next-Line.git
 
 # Compile:
-$ Make all
+$ Make
 ```
 
 ### Usage
 
-Add this line to your .c file
-```c
-#include "get_next_line.h`
-```
-
-And add the `get_next_line.a` file that was created in the Get-Next-Line folder to your project.
+And add the `get_next_line.a` file that was created in the Get-Next-Line folder to your project, and don't forget to compile it with your other files.
 
 Your finished folder structure should look like this.
 ```
 /- Project
  |- main.c
  |- get_next_line.a
- |- get_next_line.h
  |- ...
 ```
 
