@@ -6,7 +6,7 @@
 #    By: rubennijhuis <rubennijhuis@student.coda      +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/03/13 16:51:02 by rubennijhui   #+#    #+#                  #
-#    Updated: 2022/03/13 20:31:19 by rubennijhui   ########   odam.nl          #
+#    Updated: 2022/05/01 11:35:05 by rubennijhui   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,9 @@ fclean: clean
 	@rm -f $(OUTPUT)
 	@echo "🧹 Done cleaning $(NAME) archive \n"
 
+norm:
+	-norminette $(INCLUDE_DIR)
+	-norminette $(SRC_DIR)
 
 re: fclean all
 
