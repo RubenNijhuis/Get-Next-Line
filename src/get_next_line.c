@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.c                                    :+:    :+:            */
+/*   get_next_line_bonus.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/28 11:58:54 by rnijhuis      #+#    #+#                 */
-/*   Updated: 2021/11/01 10:07:53 by rnijhuis      ########   odam.nl         */
+/*   Updated: 2022/05/07 19:19:27 by rubennijhui   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <limits.h>
 
 static char	*go_through_file(char *line, int fd, char *buffer)
 {
@@ -35,7 +36,7 @@ static char	*go_through_file(char *line, int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE][1024];
 	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || read(fd, buffer, 0) == -1)
@@ -44,7 +45,7 @@ char	*get_next_line(int fd)
 	if (line == NULL)
 		return (NULL);
 	line[0] = '\0';
-	line = go_through_file(line, fd, buffer);
+	line = go_through_file(line, fd, buffer[fd]);
 	if (line == NULL)
 		return (NULL);
 	if (!*line)
