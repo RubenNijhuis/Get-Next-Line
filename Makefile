@@ -6,7 +6,7 @@
 #    By: rubennijhuis <rubennijhuis@student.coda      +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/03/13 16:51:02 by rubennijhui   #+#    #+#                  #
-#    Updated: 2022/05/01 23:08:50 by rubennijhui   ########   odam.nl          #
+#    Updated: 2022/05/07 19:28:50 by rubennijhui   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,10 @@
 #========= General variables =========#
 #=====================================#
 
-NAME := get-next-line
+NAME := get-next-line.a
 INCLUDE_DIR := include
 SRC_DIR := src
 OBJS_DIR := objs
-OUTPUT := $(NAME).a
 
 #=====================================#
 #============ Input files ============#
@@ -51,16 +50,16 @@ objs/%.o:src/%.c
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@ar -cr $(OUTPUT) $(OBJS)
-	@echo "✅ Built $(NAME) \n"
+	@ar -cr $(NAME) $(OBJS)
+	@echo "✅ Built $(NAME)"
 
 clean:
 	@rm -rf $(OBJS_DIR)
 	@echo "🧹 Done cleaning $(NAME) objects"
 
 fclean: clean
-	@rm -f $(OUTPUT)
-	@echo "🧹 Done cleaning $(NAME) archive \n"
+	@rm -f $(NAME)
+	@echo "🧹 Done cleaning $(NAME) archive"
 
 norm:
 	@echo "\033[92m========= $(NAME) norm ========\033[0m"
