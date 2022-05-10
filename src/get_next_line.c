@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_bonus.c                              :+:    :+:            */
+/*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/28 11:58:54 by rnijhuis      #+#    #+#                 */
-/*   Updated: 2022/05/07 19:19:27 by rubennijhui   ########   odam.nl         */
+/*   Updated: 2022/05/10 21:52:11 by rubennijhui   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#include <unistd.h>
+#include <stdlib.h>
 #include <limits.h>
 
-static char	*go_through_file(char *line, int fd, char *buffer)
+static char	*go_through_file(char *line, int32_t fd, char *buffer)
 {
 	int	line_size;
 	int	buf_line;
@@ -34,7 +37,7 @@ static char	*go_through_file(char *line, int fd, char *buffer)
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int32_t fd)
 {
 	static char	buffer[BUFFER_SIZE][1024];
 	char		*line;

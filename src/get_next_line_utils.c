@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_utils_bonus.c                        :+:    :+:            */
+/*   get_next_line_utils.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rnijhuis <rnijhuis@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/28 12:00:56 by rnijhuis      #+#    #+#                 */
-/*   Updated: 2022/05/07 19:19:22 by rubennijhui   ########   odam.nl         */
+/*   Updated: 2022/05/10 21:44:28 by rubennijhui   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdlib.h>
 
-int	check_line(char *line)
+uint32_t	check_line(char *line)
 {
 	while (*line)
 	{
@@ -23,7 +24,7 @@ int	check_line(char *line)
 	return (1);
 }
 
-void	reindex_buffer(char *buffer, int buf_line)
+void	reindex_buffer(char *buffer, uint32_t buf_line)
 {
 	int	i;
 
@@ -41,11 +42,12 @@ void	reindex_buffer(char *buffer, int buf_line)
 	}
 }
 
-char	*create_newline(char *line, char *buffer, int buf_size, int line_size)
+char	*create_newline(char *line, char *buffer, \
+	uint32_t buf_size, uint32_t line_size)
 {
-	int		i;
-	int		j;
-	char	*new_line;
+	uint32_t	i;
+	uint32_t	j;
+	char		*new_line;
 
 	i = 0;
 	j = 0;
@@ -67,7 +69,8 @@ char	*create_newline(char *line, char *buffer, int buf_size, int line_size)
 	return (new_line);
 }
 
-char	*add_buffer(char *line, char *buffer, int buf_line, int line_size)
+char	*add_buffer(char *line, char *buffer, \
+	uint32_t buf_line, uint32_t line_size)
 {
 	char	*new_line;
 
@@ -79,9 +82,9 @@ char	*add_buffer(char *line, char *buffer, int buf_line, int line_size)
 	return (new_line);
 }
 
-int	check_buffer(char *buffer)
+uint32_t	check_buffer(char *buffer)
 {
-	int	i;
+	uint32_t	i;
 
 	i = 0;
 	if (buffer == NULL)
