@@ -16,6 +16,10 @@
 #include <stdlib.h>
 #include <limits.h>
 
+#ifndef OPEN_MAX
+# define OPEN_MAX (1024)
+#endif
+
 static uint32_t	check_buffer(char *buffer)
 {
 	uint32_t	i;
@@ -81,10 +85,10 @@ static char	*go_through_file(char *line, int32_t fd, char *buffer)
 
 char	*get_next_line(int32_t fd)
 {
-	static char	buffer[BUFFER_SIZE][1024];
+	static char	buffer[BUFFER_SIZE][OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || fd > OPEN_MAX || read(fd, buffer, 0) == -1)
+	if (fd < 0 || fd >= OPEN_MAX || read(fd, buffer, 0) == -1)
 		return (NULL);
 	line = malloc(sizeof(char));
 	if (line == NULL)
